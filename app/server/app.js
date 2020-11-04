@@ -14,8 +14,8 @@ var logger = require('morgan')
 // sane defaults if config.json or parts are missing
 let config = {
   listen: {
-    ip: '0.0.0.0',
-    port: 2222
+    ip: '127.0.0.1',
+    port: 9022
   },
   user: {
     name: null,
@@ -126,6 +126,9 @@ app.use(session)
 app.use(myutil.basicAuth)
 if (config.accesslog) app.use(logger('common'))
 app.disable('x-powered-by')
+
+// Home files
+app.use('/', express.static(publicPath))
 
 // static files
 app.use('/ssh', express.static(publicPath, expressOptions))
